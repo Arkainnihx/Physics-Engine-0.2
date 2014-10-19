@@ -18,7 +18,12 @@ public class Particle extends Point implements PhysicsObject {
 	public void onTick() {
 		resultant = getResultant();
 		acceleration = Vector.multiply(resultant,1D/mass);
-		//velocity = Vector.add(velocity,acceleration); //TODO Finish this method
+		try {
+			velocity = Vector.add(velocity,Vector.multiply(acceleration, 0.05));
+		} catch (DimensionMismatchException e) {
+			e.printStackTrace();
+		} 
+		//TODO Finish this method
 	}
 	
 	private Vector getResultant() {
@@ -27,7 +32,6 @@ public class Particle extends Point implements PhysicsObject {
 			try {
 				resultant = Vector.add(resultant,element);
 			} catch (DimensionMismatchException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
