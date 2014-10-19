@@ -3,14 +3,14 @@ package com.github.arkainnihx.physics.library;
 import com.github.arkainnihx.physics.error.DimensionMismatchException;
 
 public class Vector {
-	private Double[] components;
+	private double[] components;
 	
-	public Vector(Double[] elem) {
+	public Vector(double[] elem) {
 		components = elem;
 	}
 	
 	public Vector(int dimension) {
-		this(new Double[dimension]);
+		this(new double[dimension]);
 	}
 	
 	public static Vector add(Vector op1, Vector op2) throws DimensionMismatchException {
@@ -18,7 +18,7 @@ public class Vector {
 			throw new DimensionMismatchException();
 		}
 		Vector result = new Vector(op1.getDimension());
-		for (int i = 0; i <= result.getDimension(); i++){
+		for (int i = 0; i < result.getDimension(); i++){
 			result.setComponent(i, op1.getComponent(i)+op2.getComponent(i));
 		}
 		return result;
@@ -26,7 +26,7 @@ public class Vector {
 	
 	public static Vector multiply(Vector op1, Double op2) {
 		Vector result = new Vector(op1.getDimension());
-		for (int i = 0; i <= result.getDimension(); i++){
+		for (int i = 0; i < result.getDimension(); i++){
 			result.setComponent(i, op1.getComponent(i)*op2);
 		}
 		return result;

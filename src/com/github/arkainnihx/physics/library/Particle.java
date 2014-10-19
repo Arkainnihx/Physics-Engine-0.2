@@ -6,13 +6,17 @@ import java.util.List;
 import com.github.arkainnihx.physics.error.DimensionMismatchException;
 
 public class Particle extends Point implements PhysicsObject {
-	private Double mass,energyK,energyG = 0D;
-	private List<Vector> forceList = new ArrayList<Vector>();
-	private Vector resultant,acceleration,momentum,velocity;
+	protected double mass,energyK,energyG = 0D;
+	protected List<Vector> forceList = new ArrayList<Vector>();
+	protected Vector resultant,acceleration,momentumL,velocity;
 	
-	public Particle(Vector initialPosition, Double mass) {
-		super(initialPosition);
+	public Particle(Vector initialPosition, Double mass, Universe myUniverse) {
+		super(initialPosition, myUniverse);
 		this.mass = mass;
+		this.resultant = new Vector(myUniverse.getDimension());
+		this.acceleration = new Vector(myUniverse.getDimension());
+		this.momentumL = new Vector(myUniverse.getDimension());
+		this.velocity = new Vector(myUniverse.getDimension());
 	}
 	
 	public void onTick() {
@@ -20,14 +24,17 @@ public class Particle extends Point implements PhysicsObject {
 		acceleration = Vector.multiply(resultant,1D/mass);
 		try {
 			velocity = Vector.add(velocity,Vector.multiply(acceleration, 0.05));
+			position = Vector.add(position, Vector.add(Vector.multiply(velocity, 0.05), Vector.multiply(acceleration, -0.5*Math.pow(0.05, 2))));
+			
 		} catch (DimensionMismatchException e) {
 			e.printStackTrace();
-		} 
-		//TODO Finish this method
+		}
+		momentumL = Vector.multiply(velocity, mass);
+		energyK = 0.5 * mass * Math.pow(velocity.getMod(), 2);
 	}
 	
 	private Vector getResultant() {
-		Vector resultant = new Vector(forceList.get(0).getDimension()); //TODO Bit of a hack here, consider cleaning
+		Vector resultant = new Vector(myUniverse.getDimension()); //TODO Bit of a hack here, consider cleaning
 		for(Vector element: forceList) {
 			try {
 				resultant = Vector.add(resultant,element);
