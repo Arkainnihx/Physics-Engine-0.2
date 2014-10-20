@@ -90,7 +90,6 @@ public class Universe {
 	}
 	
 	class MonitorTick extends TimerTask {
-		private Double currentTime = hires_time_in_seconds();
 		@Override
 		public void run() {
 			for (int count = 0; count < shapeList.size(); count++) {
