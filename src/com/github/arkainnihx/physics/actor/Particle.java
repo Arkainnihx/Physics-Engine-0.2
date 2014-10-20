@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.github.arkainnihx.physics.error.DimensionMismatchException;
+import com.github.arkainnihx.physics.library.Force;
 import com.github.arkainnihx.physics.library.PhysicsObject;
 import com.github.arkainnihx.physics.library.Universe;
 import com.github.arkainnihx.physics.library.Vector;
+import com.github.arkainnihx.physics.type.ForceType;
 
 public class Particle extends Point implements PhysicsObject {
 	protected double mass,energyK,energyG = 0D;
-	protected List<Vector> forceList = new ArrayList<Vector>();
+	protected List<Force> forceList = new ArrayList<Force>();
 	protected Vector resultant,acceleration,momentumL,velocity;
 	
 	public Particle(Vector initialPosition, Double mass, Universe myUniverse) {
 		super(initialPosition, myUniverse);
 		this.mass = mass;
-		this.resultant = new Vector(myUniverse.getDimension());
+		this.resultant = new Force(myUniverse.getDimension(), ForceType.MISC);
 		this.acceleration = new Vector(myUniverse.getDimension());
 		this.momentumL = new Vector(myUniverse.getDimension());
 		this.velocity = new Vector(myUniverse.getDimension());
@@ -36,15 +38,16 @@ public class Particle extends Point implements PhysicsObject {
 		energyK = 0.5 * mass * Math.pow(velocity.getMod(), 2);
 	}
 	
-	private Vector getResultant() {
-		Vector resultant = new Vector(myUniverse.getDimension()); //TODO Bit of a hack here, consider cleaning
-		for(Vector element: forceList) {
+	private Force getResultant() {
+		Force resultant = new Force(myUniverse.getDimension(), ForceType.MISC);
+		for(Force element: forceList) {
 			try {
-				resultant = Vector.add(resultant,element);
+				resultant = (Force) Vector.add(resultant,element);
 			} catch (DimensionMismatchException e) {
 				e.printStackTrace();
 			}
 		}
 		return resultant;
 	}
+	
 }

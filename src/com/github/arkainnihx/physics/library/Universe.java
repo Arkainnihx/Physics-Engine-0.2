@@ -19,12 +19,16 @@ public class Universe {
 	private MonitorTick monitorTick = new MonitorTick(this);
 	private int tickPeriod = 20;
 	private GravityType grav;
+	private List<Particle> gravityObjects;
 	
 	public Universe(int value, GravityType gravityType) {
 		this.grav = gravityType;
 		dimensionList = new Dimension[value];
 		for (int count = 0; count < value; count++) {
 			dimensionList[count] = Dimension.values()[count];
+		}
+		if (gravityType == GravityType.RADIAL) {
+			gravityObjects = new ArrayList<Particle>();
 		}
 	}
 	

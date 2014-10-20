@@ -24,6 +24,10 @@ public class Vector {
 		return result;
 	}
 	
+	public static Vector sub(Vector op1, Vector op2) throws DimensionMismatchException {
+		return Vector.add(op1, Vector.multiply(op2, -1D));
+	}
+	
 	public static Vector multiply(Vector op1, Double op2) {
 		Vector result = new Vector(op1.getDimension());
 		for (int i = 0; i < result.getDimension(); i++){
