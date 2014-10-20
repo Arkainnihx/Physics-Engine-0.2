@@ -82,17 +82,15 @@ public class Universe {
 		@Override
 		public void run() {
 			for (Point element: shapeList) {
-				if (element.getClass().getInterfaces()[0].equals(PhysicsObject.class)) {
-					//System.out.println("True");
+				if (element instanceof PhysicsObject) {
 					((PhysicsObject) element).onTick();
-				} else {
-					//System.out.println("False");
 				}
 			}
 		}
 	}
 	
 	class MonitorTick extends TimerTask {
+		private Double currentTime = hires_time_in_seconds();
 		@Override
 		public void run() {
 			for (int count = 0; count < shapeList.size(); count++) {
