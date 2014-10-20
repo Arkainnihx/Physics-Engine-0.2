@@ -32,6 +32,10 @@ public class Vector {
 		return result;
 	}
 	
+	public static Vector normalise(Vector op) {
+		return Vector.multiply(op, 1/op.getMod());
+	}
+	
 	public Vector setComponent(int index, Double value) {
 		this.components[index] = value;
 		return this;

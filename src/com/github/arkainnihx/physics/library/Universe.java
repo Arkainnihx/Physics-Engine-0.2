@@ -4,23 +4,32 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import com.github.arkainnihx.physics.Wrapper;
+import com.github.arkainnihx.physics.actor.Particle;
+import com.github.arkainnihx.physics.actor.Point;
+import com.github.arkainnihx.physics.time.*;
+import com.github.arkainnihx.physics.type.GravityType;
 
 public class Universe {
 	private Dimension[] dimensionList;
 	private List<Point> shapeList = new ArrayList<Point>();
 	private Timer time = new Timer();
-	private SimTick simTick = new SimTick();
-	private MonitorTick monitorTick = new MonitorTick();
+	private SimTick simTick = new SimTick(this);
+	private MonitorTick monitorTick = new MonitorTick(this);
 	private int tickPeriod = 20;
+	private GravityType grav;
 	
-	public Universe(int value) {
+	public Universe(int value, GravityType gravityType) {
+		this.grav = gravityType;
 		dimensionList = new Dimension[value];
 		for (int count = 0; count < value; count++) {
 			dimensionList[count] = Dimension.values()[count];
 		}
+	}
+	
+	public Universe(int value){
+		this(value, GravityType.UNIFORM);
 	}
 	
 	public void startSim() {
@@ -31,6 +40,7 @@ public class Universe {
 	public void stopSim() {
 		simTick.cancel();
 		monitorTick.cancel();
+		time.purge();
 	}
 	
 	public static void listShapes() {
@@ -78,34 +88,16 @@ public class Universe {
 		shapeList.add(shapeList.size(), myParticle);
 	}
 	
-	class SimTick extends TimerTask {
-		@Override
-		public void run() {
-			for (Point element: shapeList) {
-				if (element instanceof PhysicsObject) {
-					((PhysicsObject) element).onTick();
-				}
-			}
-		}
-	}
-	
-	class MonitorTick extends TimerTask {
-		@Override
-		public void run() {
-			for (int count = 0; count < shapeList.size(); count++) {
-				System.out.println("Shape " + String.valueOf(count));
-				System.out.println(String.valueOf((shapeList.get(count).getPosition().getComponent(0))));
-				System.out.println(String.valueOf((shapeList.get(count).getPosition().getComponent(1))));
-			}
-		}
-	}
-	
 	public int getDimension() {
 		return dimensionList.length;
 	}
 	
 	public Timer getTime() {
 		return time;
+	}
+	
+	public List<Point> getShapeList(){
+		return this.shapeList;
 	}
 	
 }
