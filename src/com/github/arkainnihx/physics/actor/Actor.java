@@ -4,6 +4,10 @@ import com.github.arkainnihx.physics.library.Vector;
 
 public interface Actor {
 
-	void applyImpulse(Vector impulse);
+	public void onTick();
+	
+	public void applyForce(Vector impulse);
+
+	public Vector getPosition();
 
 }

@@ -8,14 +8,15 @@ import com.github.arkainnihx.physics.gui.GuiFrame;
 import com.github.arkainnihx.physics.gui.Window;
 import com.github.arkainnihx.physics.library.Universe;
 
+@SuppressWarnings("unused")
 public class Wrapper {
 
 	public static Universe myUniverse;
 	
 	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		
-		@SuppressWarnings("unused")
-		GuiFrame mainWindow = new GuiFrame(Window.MAIN).init();
+		//@SuppressWarnings("unused")
+		//GuiFrame mainWindow = new GuiFrame(Window.MAIN).init();
 		
 		myUniverse = new Universe(2);
 		Universe.listShapes();

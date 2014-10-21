@@ -6,20 +6,23 @@ import java.util.List;
 import java.util.Timer;
 
 import com.github.arkainnihx.physics.Wrapper;
+import com.github.arkainnihx.physics.actor.Actor;
 import com.github.arkainnihx.physics.actor.Particle;
 import com.github.arkainnihx.physics.actor.Point;
-import com.github.arkainnihx.physics.time.*;
-import com.github.arkainnihx.physics.type.GravityType;
+import com.github.arkainnihx.physics.time.MonitorTick;
+import com.github.arkainnihx.physics.time.SimTick;
+
+
 
 public class Universe {
 	private Dimension[] dimensionList;
-	private List<Point> shapeList = new ArrayList<Point>();
+	private List<Actor> shapeList = new ArrayList<Actor>();
 	private Timer time = new Timer();
 	private SimTick simTick = new SimTick(this);
 	private MonitorTick monitorTick = new MonitorTick(this);
 	private int tickPeriod = 20;
 	private boolean usesUniformGravity;
-	private List<Particle> gravityObjects;
+	private List<Actor> gravityObjects;
 	
 	public Universe(int value, boolean uniformGravity) {
 		this.usesUniformGravity = uniformGravity;
@@ -28,7 +31,7 @@ public class Universe {
 			dimensionList[count] = Dimension.values()[count];
 		}
 		if (!uniformGravity) {
-			gravityObjects = new ArrayList<Particle>();
+			gravityObjects = new ArrayList<Actor>();
 		}
 	}
 	
@@ -100,7 +103,7 @@ public class Universe {
 		return time;
 	}
 	
-	public List<Point> getShapeList(){
+	public List<Actor> getShapeList(){
 		return this.shapeList;
 	}
 	

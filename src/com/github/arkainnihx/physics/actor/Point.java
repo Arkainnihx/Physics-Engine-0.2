@@ -23,20 +23,27 @@ public class Point implements Actor {
 		return this.position;
 	}
 	
-	public Point setPosition(Vector newPosition){
+	public Point setPosition(Vector newPosition) {
 		position = newPosition;
 		return this;
 	}
 	
-	public Vector getInitialPosition(){
+	public Vector getInitialPosition() {
 		return initialPosition;
 	}
 	
-	public Point setInitialPosition(Vector newPosition){
+	public Point setInitialPosition(Vector newPosition) {
 		initialPosition = newPosition;
 		return this;
 	}
 
 	@Override
-	public void applyImpulse(Vector impulse){}
+	public void applyForce(Vector impulse) {
+		
+	}
+
+	@Override
+	public void onTick() {
+
+	}
 }

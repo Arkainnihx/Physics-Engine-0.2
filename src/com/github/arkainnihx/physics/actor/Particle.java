@@ -5,11 +5,10 @@ import java.util.List;
 
 import com.github.arkainnihx.physics.error.DimensionMismatchException;
 import com.github.arkainnihx.physics.library.Force;
-import com.github.arkainnihx.physics.library.PhysicsObject;
 import com.github.arkainnihx.physics.library.Universe;
 import com.github.arkainnihx.physics.library.Vector;
 
-public class Particle extends Point implements PhysicsObject {
+public class Particle extends Point {
 	protected double mass,energyK,energyG = 0D;
 	protected List<Force> forceList = new ArrayList<Force>();
 	protected Vector resultant,acceleration,momentumL,velocity;
@@ -22,6 +21,7 @@ public class Particle extends Point implements PhysicsObject {
 		this.velocity = new Vector(myUniverse.getDimension());
 	}
 	
+	@Override
 	public void onTick() {
 		try {
 			velocity = Vector.multiply(momentumL, 1D/mass);
@@ -34,7 +34,7 @@ public class Particle extends Point implements PhysicsObject {
 	}
 	
 	@Override
-	public void applyImpulse(Vector impulse) {
+	public void applyForce(Vector impulse) {
 		try {
 			momentumL = Vector.add(momentumL, impulse);
 		} catch (DimensionMismatchException e) {
