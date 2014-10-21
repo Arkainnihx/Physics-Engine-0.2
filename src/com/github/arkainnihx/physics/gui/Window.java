@@ -1,25 +1,77 @@
 package com.github.arkainnihx.physics.gui;
 
-import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 
-public class Window implements Runnable {
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+
+public enum Window {
 	
-	private WindowType type;
-	
-	public Window(WindowType type) {
-		this.type = type;
-        javax.swing.SwingUtilities.invokeLater((Runnable) this);
-	}
-	
-	public void run() {
-		createWindow(this.type);
-	}
-	
-	private static void createWindow(WindowType type) {
-		JFrame frame = new JFrame("Arkainnihx Physics Simulator");
-		frame.setBounds(type.getDimension());
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	MAIN {
 		
-		frame.setVisible(true);
+		@Override
+		public Rectangle getDimension() {
+			return new Rectangle(1280, 720);
+		}
+		
+		@Override
+		public Container setContent(Container pane) {
+			pane.setLayout(new BorderLayout());
+			pane.add(new JPanel());
+			return pane;
+		}
+		
+		@Override
+		public JMenuBar getMenuBar() {
+			JMenuBar menuBar = new JMenuBar();
+			menuBar.setOpaque(true);
+			menuBar.setPreferredSize(new Dimension(1280, 20));
+			
+			JMenu fileMenu = new JMenu("File");
+			
+				fileMenu.add(GuiListener.QUIT.getMenuItem());
+				
+			menuBar.add(fileMenu);
+			
+			JMenu simMenu = new JMenu("Simulation");
+				
+				simMenu.add(GuiListener.PAUSE.getMenuItem());
+				simMenu.add(GuiListener.RESUME.getMenuItem());
+			
+			menuBar.add(simMenu);
+				
+			return menuBar;
+		}
+	},
+	
+	DIALOG {
+		
+		@Override
+		public Rectangle getDimension() {
+			return new Rectangle(480,360);
+		}
+		
+		@Override
+		public Container setContent(Container pane) {
+			//TODO Set up content adding
+			return pane;
+		}
+	};
+	
+	public Rectangle getDimension() {
+		return null;
+	}
+	
+	public Container setContent(Container pane) {
+		return pane;
+	}
+	
+	public JMenuBar getMenuBar() {
+		return null;
 	}
 }

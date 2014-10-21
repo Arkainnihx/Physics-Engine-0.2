@@ -1,22 +1,28 @@
 package com.github.arkainnihx.physics.library;
 
-import com.github.arkainnihx.physics.type.ForceType;
+import com.github.arkainnihx.physics.actor.Actor;
 
 public class Force extends Vector {
 	
-	private ForceType forceType;
+	private boolean perma;
+	private double time;
+	private Actor[] children = new Actor[2];
 	
-	public Force(double[] elem, ForceType type) {
+	public Force(double[] elem, boolean permanent) {
 		super(elem);
-		this.forceType = type;
+		this.perma = permanent;
 	}
 	
-	public Force(int dimension, ForceType type) {
+	public Force(int dimension, boolean permanent) {
 		super(dimension);
-		this.forceType = type;
+		this.perma = permanent;
 	}
 	
-	public boolean isOfType(ForceType type){
-		return (this.forceType == type);
+	public boolean isPermaForce() {
+		return this.perma;
+	}
+	
+	public void applyOverTime(double deltaT) {
+		children[0].applyImpulse(Vector.multiply(this, deltaT));
 	}
 }

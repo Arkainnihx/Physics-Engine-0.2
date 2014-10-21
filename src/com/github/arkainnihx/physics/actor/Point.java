@@ -3,7 +3,7 @@ package com.github.arkainnihx.physics.actor;
 import com.github.arkainnihx.physics.library.Universe;
 import com.github.arkainnihx.physics.library.Vector;
 
-public class Point {
+public class Point implements Actor {
 	
 	protected Vector initialPosition;
 	protected Vector position;
@@ -36,4 +36,7 @@ public class Point {
 		initialPosition = newPosition;
 		return this;
 	}
+
+	@Override
+	public void applyImpulse(Vector impulse){}
 }

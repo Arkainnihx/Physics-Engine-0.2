@@ -18,22 +18,22 @@ public class Universe {
 	private SimTick simTick = new SimTick(this);
 	private MonitorTick monitorTick = new MonitorTick(this);
 	private int tickPeriod = 20;
-	private GravityType grav;
+	private boolean usesUniformGravity;
 	private List<Particle> gravityObjects;
 	
-	public Universe(int value, GravityType gravityType) {
-		this.grav = gravityType;
+	public Universe(int value, boolean uniformGravity) {
+		this.usesUniformGravity = uniformGravity;
 		dimensionList = new Dimension[value];
 		for (int count = 0; count < value; count++) {
 			dimensionList[count] = Dimension.values()[count];
 		}
-		if (gravityType == GravityType.RADIAL) {
+		if (!uniformGravity) {
 			gravityObjects = new ArrayList<Particle>();
 		}
 	}
 	
 	public Universe(int value){
-		this(value, GravityType.UNIFORM);
+		this(value, true);
 	}
 	
 	public void startSim() {
