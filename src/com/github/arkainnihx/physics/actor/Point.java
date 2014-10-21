@@ -6,13 +6,13 @@ import com.github.arkainnihx.physics.library.Vector;
 public class Point implements Actor {
 	
 	protected Vector initialPosition;
-	protected Vector position;
+	protected Vector displacement;
 	protected Universe myUniverse;
 	
 	public Point(Vector init, Universe myUniverse) {
 		this.myUniverse = myUniverse;
 		this.initialPosition = init;
-		this.position = initialPosition.clone();
+		this.displacement = initialPosition.clone();
 	}
 	
 	public Point(Universe myUniverse) {
@@ -20,11 +20,11 @@ public class Point implements Actor {
 	}
 	
 	public Vector getPosition() {
-		return this.position;
+		return this.displacement;
 	}
 	
 	public Point setPosition(Vector newPosition) {
-		position = newPosition;
+		displacement = newPosition;
 		return this;
 	}
 	

@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
-import com.github.arkainnihx.physics.Wrapper;
 import com.github.arkainnihx.physics.actor.Actor;
 import com.github.arkainnihx.physics.actor.Particle;
 import com.github.arkainnihx.physics.actor.Point;
+import com.github.arkainnihx.physics.client.Wrapper;
 import com.github.arkainnihx.physics.time.MonitorTick;
 import com.github.arkainnihx.physics.time.SimTick;
 
@@ -17,6 +17,7 @@ import com.github.arkainnihx.physics.time.SimTick;
 public class Universe {
 	private Dimension[] dimensionList;
 	private List<Actor> shapeList = new ArrayList<Actor>();
+	private List<Force> forceList = new ArrayList<Force>();
 	private Timer time = new Timer();
 	private SimTick simTick = new SimTick(this);
 	private MonitorTick monitorTick = new MonitorTick(this);
@@ -42,12 +43,20 @@ public class Universe {
 	public void startSim() {
 		time.scheduleAtFixedRate(simTick, 0, tickPeriod);
 		time.scheduleAtFixedRate(monitorTick, 0, tickPeriod * 50);
+		simTick.resumeSim();
 	}
 	
 	public void stopSim() {
 		simTick.cancel();
 		monitorTick.cancel();
-		time.purge();
+	}
+	
+	public void resumeSim() {
+		simTick.resumeSim();
+	}
+	
+	public void pauseSim() {
+		simTick.pauseSim();
 	}
 	
 	public static void listShapes() {
@@ -103,8 +112,12 @@ public class Universe {
 		return time;
 	}
 	
-	public List<Actor> getShapeList(){
+	public List<Actor> getShapeList() {
 		return this.shapeList;
+	}
+	
+	public List<Force> getForceList() {
+		return this.forceList;
 	}
 	
 }

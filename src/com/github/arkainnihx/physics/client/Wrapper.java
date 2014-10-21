@@ -1,22 +1,19 @@
-package com.github.arkainnihx.physics;
+package com.github.arkainnihx.physics.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.github.arkainnihx.physics.gui.GuiFrame;
-import com.github.arkainnihx.physics.gui.Window;
+import com.github.arkainnihx.physics.client.gui.GuiFrame;
 import com.github.arkainnihx.physics.library.Universe;
 
-@SuppressWarnings("unused")
 public class Wrapper {
 
 	public static Universe myUniverse;
 	
 	public static void main(String[] args) throws NumberFormatException, IOException, InterruptedException {
 		
-		//@SuppressWarnings("unused")
-		//GuiFrame mainWindow = new GuiFrame(Window.MAIN).init();
+		GuiFrame window = new GuiFrame();
 		
 		myUniverse = new Universe(2);
 		Universe.listShapes();
@@ -36,5 +33,4 @@ public class Wrapper {
 		inputString = userInput.readLine();
 		return inputString;
 	}
-
 }

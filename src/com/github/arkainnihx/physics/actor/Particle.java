@@ -25,7 +25,7 @@ public class Particle extends Point {
 	public void onTick() {
 		try {
 			velocity = Vector.multiply(momentumL, 1D/mass);
-			position = Vector.add(position, Vector.add(Vector.multiply(velocity, 0.05), Vector.multiply(acceleration, -0.5*Math.pow(0.05, 2))));
+			displacement = Vector.add(displacement, Vector.add(Vector.multiply(velocity, 0.05), Vector.multiply(acceleration, -0.5*Math.pow(0.05, 2))));
 			
 		} catch (DimensionMismatchException e) {
 			e.printStackTrace();
