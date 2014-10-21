@@ -2,18 +2,20 @@ package com.github.arkainnihx.physics.library;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import com.github.arkainnihx.physics.Wrapper;
+import com.github.arkainnihx.physics.actor.Actor;
+import com.github.arkainnihx.physics.actor.Particle;
+import com.github.arkainnihx.physics.actor.Point;
+import com.github.arkainnihx.physics.time.*;
 
 public class Universe {
 	private Dimension[] dimensionList;
-	private List<Point> shapeList = new ArrayList<Point>();
+	private ArrayList<Actor> shapeList = new ArrayList<Actor>();
 	private Timer time = new Timer();
-	private SimTick simTick = new SimTick();
-	private MonitorTick monitorTick = new MonitorTick();
+	private SimTick simTick = new SimTick(this);
+	private MonitorTick monitorTick = new MonitorTick(this);
 	private int tickPeriod = 20;
 	
 	public Universe(int value) {
@@ -78,31 +80,6 @@ public class Universe {
 		shapeList.add(shapeList.size(), myParticle);
 	}
 	
-	class SimTick extends TimerTask {
-		@Override
-		public void run() {
-			for (Point element: shapeList) {
-				if (element.getClass().getInterfaces()[0].equals(PhysicsObject.class)) {
-					//System.out.println("True");
-					((PhysicsObject) element).onTick();
-				} else {
-					//System.out.println("False");
-				}
-			}
-		}
-	}
-	
-	class MonitorTick extends TimerTask {
-		@Override
-		public void run() {
-			for (int count = 0; count < shapeList.size(); count++) {
-				System.out.println("Shape " + String.valueOf(count));
-				System.out.println(String.valueOf((shapeList.get(count).getPosition().getComponent(0))));
-				System.out.println(String.valueOf((shapeList.get(count).getPosition().getComponent(1))));
-			}
-		}
-	}
-	
 	public int getDimension() {
 		return dimensionList.length;
 	}
@@ -111,4 +88,7 @@ public class Universe {
 		return time;
 	}
 	
+	public ArrayList<Actor> getShapeList() {
+		return shapeList;
+	}
 }
