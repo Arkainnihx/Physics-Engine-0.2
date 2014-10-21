@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 
-import com.github.arkainnihx.physics.Wrapper;
 import com.github.arkainnihx.physics.actor.Actor;
 import com.github.arkainnihx.physics.actor.Particle;
 import com.github.arkainnihx.physics.actor.Point;
+import com.github.arkainnihx.physics.client.Wrapper;
 import com.github.arkainnihx.physics.time.*;
 
 public class Universe {
