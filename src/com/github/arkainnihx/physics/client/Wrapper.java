@@ -16,7 +16,6 @@ public class Wrapper {
 		Universe.listShapes();
 		myUniverse.addShape();
 		myUniverse.startSim();
-		
 		try {
 		    Thread.sleep(10000);                 
 		} catch(InterruptedException ex) {

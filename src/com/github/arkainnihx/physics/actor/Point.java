@@ -4,7 +4,6 @@ import com.github.arkainnihx.physics.library.Universe;
 import com.github.arkainnihx.physics.library.Vector;
 
 public class Point implements Actor {
-	
 	protected Vector initialPosition;
 	protected Vector displacement;
 	protected Universe myUniverse;
@@ -38,4 +37,8 @@ public class Point implements Actor {
 	}
 	
 	public void onTick() {}
+
+	public boolean collisionDetected(Vector testCoord) {
+		return false;
+	}
 }

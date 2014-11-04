@@ -8,4 +8,6 @@ public interface Actor {
 	
 	public Vector getPosition();
 	
+	public boolean collisionDetected(Vector testCoord);
+	
 }

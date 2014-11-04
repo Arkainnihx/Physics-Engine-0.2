@@ -35,6 +35,14 @@ public class Universe {
 		monitorTick.cancel();
 	}
 	
+	public void resetSim() {
+		for (Actor element : shapeList) {
+			if (element instanceof Point) {
+				((Point) element).setPosition(((Point) element).getInitialPosition().clone());
+			}
+		}
+	}
+	
 	public static void listShapes() {
 		System.out.println("0 - Point");
 		System.out.println("1 - Particle");

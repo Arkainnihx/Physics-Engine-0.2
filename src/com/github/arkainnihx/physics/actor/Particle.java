@@ -25,7 +25,7 @@ public class Particle extends Point {
 		resultant = getResultant();
 		acceleration = Vector.multiply(resultant,1D/mass);
 		try {
-			velocity = Vector.add(velocity,Vector.multiply(acceleration, 0.05));
+			velocity = Vector.add(velocity, Vector.multiply(acceleration, 0.05));
 			displacement = Vector.add(displacement, Vector.add(Vector.multiply(velocity, 0.05), Vector.multiply(acceleration, -0.5*Math.pow(0.05, 2))));
 			
 		} catch (DimensionMismatchException e) {
@@ -36,14 +36,15 @@ public class Particle extends Point {
 	}
 	
 	private Vector getResultant() {
-		Vector resultant = new Vector(myUniverse.getDimension()); //TODO Bit of a hack here, consider cleaning
+		Vector resultant = new Vector(myUniverse.getDimension());
 		for(Vector element: forceList) {
 			try {
-				resultant = Vector.add(resultant,element);
+				resultant = Vector.add(resultant, element);
 			} catch (DimensionMismatchException e) {
 				e.printStackTrace();
 			}
 		}
 		return resultant;
 	}
+	
 }
